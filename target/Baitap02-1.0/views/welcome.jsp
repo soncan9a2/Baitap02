@@ -30,6 +30,21 @@
         text-decoration: none;
         color: white;
     }
+    .category-btn {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+    .category-btn:hover {
+        background-color: #0056b3;
+        text-decoration: none;
+        color: white;
+    }
 </style>
 </head>
 <body>
@@ -37,7 +52,10 @@
         <div class="welcome-message">
             Chào mừng, ${user.userName}!
         </div>
-        <a href="${pageContext.request.contextPath}/logout" class="logout-btn">Đăng xuất</a>
+        <div>
+            <a href="${pageContext.request.contextPath}/admin/category/list" class="category-btn">Quản lý Category</a>
+            <a href="${pageContext.request.contextPath}/logout" class="logout-btn">Đăng xuất</a>
+        </div>
     </c:if>
 </body>
 </html>

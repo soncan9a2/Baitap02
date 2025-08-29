@@ -15,14 +15,14 @@ public class LogoutController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
         throws ServletException, IOException {
-        
-        // Xóa session
+
+    	// xoa sesion
         HttpSession session = req.getSession(false);
         if (session != null) {
             session.invalidate();
         }
         
-        // Xóa cookies
+        // xoa cookie
         Cookie[] cookies = req.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
