@@ -8,4 +8,5 @@ dao\UserDao.class
 controller\RegisterController.class
 controller\LogoutController.class
 service\UserServiceImpl.class
+controller\ForgotPasswordController.class
 model\User.class

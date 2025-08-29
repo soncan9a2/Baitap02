@@ -148,4 +148,40 @@ public class UserDaoImpl implements UserDao {
         }
         return false;
     }
+
+    @Override
+    public boolean resetPassword(String username, String email, String phone, String newPassword) {
+        // Đầu tiên kiểm tra thông tin có khớp không
+        String checkSql = "SELECT * FROM [User] WHERE username = ? AND email = ? AND phone = ?";
+        try {
+            conn = new DBConnection().getConnection();
+            ps = conn.prepareStatement(checkSql);
+            ps.setString(1, username);
+            ps.setString(2, email);
+            ps.setString(3, phone);
+            rs = ps.executeQuery();
+            
+            if (rs.next()) {
+                // Nếu thông tin khớp, cập nhật mật khẩu mới
+                String updateSql = "UPDATE [User] SET password = ? WHERE username = ?";
+                PreparedStatement updatePs = conn.prepareStatement(updateSql);
+                updatePs.setString(1, newPassword);
+                updatePs.setString(2, username);
+                int result = updatePs.executeUpdate();
+                updatePs.close();
+                return result > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (conn != null) conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
 }
