@@ -1,4 +1,4 @@
-# Bài tập 02 - Login MVC 3 Tier
+# Bài tập 02 và 03 - Login MVC 3 Tier
 
 **Sinh viên:** Huỳnh Thanh Nhân  
 **MSSV:** 23110280
