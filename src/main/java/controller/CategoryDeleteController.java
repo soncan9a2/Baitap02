@@ -21,7 +21,7 @@ public class CategoryDeleteController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
             throws ServletException, IOException {
         
-        // Kiểm tra session user
+        // Kt session
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("account");
         
@@ -38,7 +38,6 @@ public class CategoryDeleteController extends HttpServlet {
             e.printStackTrace();
         }
         
-        // Redirect về list
         resp.sendRedirect(req.getContextPath() + "/admin/category/list");
     }
 }

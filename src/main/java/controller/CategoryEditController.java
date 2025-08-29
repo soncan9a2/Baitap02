@@ -24,9 +24,9 @@ import service.CategoryServiceImpl;
 import utils.Constant;
 
 @WebServlet(urlPatterns = { "/admin/category/edit" })
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-                 maxFileSize = 1024 * 1024 * 10,      // 10MB
-                 maxRequestSize = 1024 * 1024 * 50)   // 50MB
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, 
+                 maxFileSize = 1024 * 1024 * 10,      
+                 maxRequestSize = 1024 * 1024 * 50) 
 public class CategoryEditController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     CategoryService cateService = new CategoryServiceImpl();
@@ -35,7 +35,6 @@ public class CategoryEditController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
             throws ServletException, IOException {
         
-        // Kiểm tra session user
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("account");
         
@@ -57,7 +56,6 @@ public class CategoryEditController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
             throws ServletException, IOException {
         
-        // Kiểm tra session user
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("account");
         
@@ -66,54 +64,44 @@ public class CategoryEditController extends HttpServlet {
             return;
         }
 
-        // Thiết lập encoding
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
 
         try {
-            // Lấy thông tin từ form
             String catename = req.getParameter("name");
             int cateid = Integer.parseInt(req.getParameter("id"));
             String fname = "";
 
-            // Lấy category cũ
             Category category = cateService.get(cateid);
             String fileold = category.getIcon();
 
-            // Xử lý file upload
             Part filePart = req.getPart("icon");
             if (filePart != null && filePart.getSize() > 0) {
                 String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
                 fname = System.currentTimeMillis() + "_" + fileName;
 
-                // Tạo thư mục nếu chưa tồn tại
                 Path uploadDir = Paths.get(Constant.DIR);
                 if (!Files.exists(uploadDir)) {
                     Files.createDirectories(uploadDir);
                 }
 
-                // Lưu file
                 Path filePath = uploadDir.resolve(fname);
                 try (InputStream input = filePart.getInputStream()) {
                     Files.copy(input, filePath, StandardCopyOption.REPLACE_EXISTING);
                 }
             }
 
-            // Cập nhật thông tin
             category.setCatename(catename);
             category.setUserId(user.getId());
-            
-            // Nếu có file mới thì cập nhật, không thì giữ file cũ
+
             if (!fname.isEmpty()) {
                 category.setIcon(fname);
             } else {
                 category.setIcon(fileold);
             }
 
-            // Update vào database
             cateService.edit(category);
 
-            // Redirect về list
             resp.sendRedirect(req.getContextPath() + "/admin/category/list");
 
         } catch (Exception e) {

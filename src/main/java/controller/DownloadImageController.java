@@ -23,15 +23,13 @@ public class DownloadImageController extends HttpServlet {
         File file = new File(Constant.DIR + "/" + fileName);
         
         if (file.exists()) {
-            // Xác định content type dựa trên phần mở rộng file
             String contentType = getServletContext().getMimeType(fileName);
             if (contentType == null) {
                 contentType = "application/octet-stream";
             }
             resp.setContentType(contentType);
             resp.setContentLength((int) file.length());
-            
-            // Copy file content to response
+
             try (FileInputStream fis = new FileInputStream(file);
                  OutputStream os = resp.getOutputStream()) {
                 byte[] buffer = new byte[4096];
