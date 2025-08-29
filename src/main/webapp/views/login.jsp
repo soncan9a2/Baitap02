@@ -39,6 +39,9 @@
                         <section>
                             <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
                         </section>
+                        <section>
+                            <p>Chưa có tài khoản? <a href="${pageContext.request.contextPath}/register">Đăng ký</a></p>
+                        </section>
                     </form>
                 </div>
             </div>

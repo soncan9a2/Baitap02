@@ -1,5 +1,8 @@
 C:\Lap_trinh_web\Baitap02\src\main\java\controller\LoginController.java
+C:\Lap_trinh_web\Baitap02\src\main\java\controller\LogoutController.java
+C:\Lap_trinh_web\Baitap02\src\main\java\controller\RegisterController.java
 C:\Lap_trinh_web\Baitap02\src\main\java\controller\WaitingController.java
+C:\Lap_trinh_web\Baitap02\src\main\java\controller\WelcomeController.java
 C:\Lap_trinh_web\Baitap02\src\main\java\dao\UserDao.java
 C:\Lap_trinh_web\Baitap02\src\main\java\dao\UserDaoImpl.java
 C:\Lap_trinh_web\Baitap02\src\main\java\model\User.java
